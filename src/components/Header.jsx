@@ -2,35 +2,25 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import clipboard from '../img/Clipboard.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { setInputValue } from "../redux/action";
-import { useEffect, useState } from "react";
+import CardBox from "./CardBox";
+
+        
 
 function Header() {
-                function getStorage(){
-                        let data = localStorage.getItem("notes")
-                        if(data){
-                        return JSON.parse(localStorage.getItem("notes"))
-                        }else{
-                        return []
-                        }
-                }
 
-        const {inputValue,id} = useSelector((state)=>state.note)
+
+        const {inputValue} = useSelector((state)=>state.note)
         const dispatch = useDispatch()
-        const [data,setData] = useState(getStorage)
-        const editData = {inputValue,id}
+        let all = [localStorage.getItem("myArray")];
+
+        console.log(JSON.parse(all));
         function onChange(e) {
                 dispatch(setInputValue(e.target.value))
                 console.log(e);
               }
-        
+  
      
-              useEffect(()=>{
-                localStorage.setItem("notes",JSON.stringify(data))
-              },[data])
 
-              function addData() {
-                setData([editData,...data])
-              }
 
         return (
     <div className="header">
@@ -42,7 +32,7 @@ function Header() {
                                     placeholder="Add a new task.."  
                                     value={inputValue}
                                     onChange={onChange}/>
-                                    <button  onClick={addData}>Add Note <span><IoMdAddCircleOutline /></span></button>
+                                    <button  onClick={()=> dispatch({type: "btn"})}>Add Note <span><IoMdAddCircleOutline /></span></button>
                             </div>
 
 
@@ -58,10 +48,12 @@ function Header() {
                                         Create tasks and organize your to-do items</p>
                                     </div>
 
-
-                                    <div className="header__box">
-                                                <p>0</p>
-                                    </div>
+                                
+                                <div className="header__card">
+                                        {all.map(item => (
+                                                <CardBox key={item.id} data={item} />
+                                        ))}
+                                </div>
                             </div>
                     </div>
             </div>
