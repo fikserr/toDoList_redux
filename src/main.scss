@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    max-width: 1320px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+
+}
+
+.navbar{
+    padding: 76px 0;
+    height: 200px;
+    background: rgb(13, 13, 13);
+
+    &__content{
+        display: flex;
+        justify-content: center;
+        
+    }
+    &__title{
+
+        color: rgb(78, 168, 222);
+        font-family: Inter;
+        font-size: 40px;
+        font-weight: 900;
+        line-height: 48px;
+        text-align: left;
+        &-img{
+            height: 30px;
+            padding-right: 12px;
+        }
+    }
+}
+
+.header{
+    height: 80vh;
+    background: rgb(38, 38, 38);
+
+
+    &__content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__search{
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        top: -25px;
+        width: 100%;
+        padding-bottom: 65px;
+        & input{
+            color: rgb(128, 128, 128);
+            font-family: Inter;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 140%;
+            text-align: left;
+            padding: 16px;
+            width: 75%;
+            border: 1px solid rgb(13, 13, 13);
+            border-radius: 8px;
+            background: rgb(38, 38, 38);
+            border: 1px solid rgb(13, 13, 13);
+        }
+        & button{
+            width: 24%;
+            border-radius: 8px;
+            background: rgb(30, 111, 159);
+            border: none;
+            color: rgb(242, 242, 242);
+            font-family: Inter;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 140%;
+            text-align: center;
+            padding: 16px;
+            & span{
+                text-align: center;
+                font-size: 15px;
+                color: rgb(242, 242, 242);
+            }
+        }
+
+    }
+
+    &__tasks{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        &-title, &-complate {
+            color: rgb(78, 168, 222);
+            font-family: Inter;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 17px;
+            text-align: left;
+            & span{
+                border-radius: 999px;
+                background: rgb(51, 51, 51);
+                color: rgb(217, 217, 217);
+                font-family: Inter;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 15px;
+                text-align: left;
+                padding: 0 8px;
+                margin-left: 8px;
+            }
+        }
+    }
+
+    &__clipboard{
+        padding-top: 64px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &-img{
+            padding-bottom: 16px;
+        }
+
+        &-text{
+            width: 60%;
+            color: rgb(128, 128, 128);
+            font-family: Inter;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 140%;
+            text-align: center;
+        }
+    }
+}
+
+
+
