@@ -118,6 +118,9 @@
             }
         }
     }
+    &__note{
+        width: 100%;
+    }
 
     &__clipboard{
         padding-top: 64px;
@@ -141,4 +144,45 @@
 }
 
 
+.header__card{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+}
+
+.header__box{
+    width: 100%;
+    height: 72px;
+    padding: 16px;
+    border: 1px solid rgb(51, 51, 51);
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.06);
+    background: rgb(38, 38, 38);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    &-check{
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 1px solid rgb(78, 168, 222);
+        background: transparent;
+    }
+    & p{
+        width: 85%;
+        color: rgb(242, 242, 242);
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 140%;
+        text-align: left;
+    }
+    &-basket{
+        background: transparent;
+        font-size: 18px;
+        border: none;
+        color:rgb(128, 128, 128);
+    }
+}
 

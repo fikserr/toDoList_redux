@@ -6,18 +6,20 @@ export const initialState = {
 }
 
 
- export const data = []
+  const data = []
+
+
+
 
 
 
 function notes(state=initialState,action) {
-    let date = new Date();
-    let currentDate = date.toLocaleDateString();
+
     if (action.type === 'btn') {
-      console.log(state);
-      let arrayJSON = JSON.stringify(state);
-      data.push(arrayJSON)
-      localStorage.setItem('myArray', data);
+
+      data.push(state)
+      let arrayJSON = JSON.stringify(data);
+      localStorage.setItem('myArray', arrayJSON);
       
 
       return{
@@ -28,7 +30,11 @@ function notes(state=initialState,action) {
     }
 
     if (action.type === "SET_INPUT_VALUE") {
-     
+      let date = new Date();
+      let hours = date.getHours(); // Soat
+      let minutes = date.getMinutes(); // Daqiqa
+      let second = date.getSeconds(); // Daqiqa
+      let currentDate = hours + minutes + second
         return {
           ...state,
           inputValue: action.payload,

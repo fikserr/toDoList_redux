@@ -3,6 +3,8 @@ import clipboard from '../img/Clipboard.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { setInputValue } from "../redux/action";
 import CardBox from "./CardBox";
+import { useEffect, useState } from "react";
+
 
         
 
@@ -11,19 +13,21 @@ function Header() {
 
         const {inputValue} = useSelector((state)=>state.note)
         const dispatch = useDispatch()
-        let all = [localStorage.getItem("myArray")];
-
-        console.log(JSON.parse(all));
+        const [data,setData] = useState([])
         function onChange(e) {
                 dispatch(setInputValue(e.target.value))
                 console.log(e);
               }
-  
-     
+              
+        useEffect(()=>{
+             let ahar = JSON.parse(localStorage.getItem('myArray'))
+             setData(ahar)
+             console.log();
+        },[localStorage])
 
-
+        
         return (
-    <div className="header">
+        <div className="header">
             <div className="container">
                     <div className="header__content">
 
@@ -50,9 +54,11 @@ function Header() {
 
                                 
                                 <div className="header__card">
-                                        {all.map(item => (
-                                                <CardBox key={item.id} data={item} />
-                                        ))}
+                                {
+                                data.map(item => (
+                                        <CardBox key={item.id} el={item} />
+                                ))
+                                }
                                 </div>
                             </div>
                     </div>
