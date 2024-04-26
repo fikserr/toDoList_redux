@@ -120,6 +120,7 @@
     }
     &__note{
         width: 100%;
+        padding-top: 24px;
     }
 
     &__clipboard{
@@ -127,6 +128,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        overflow: hidden;
+        &.active{
+            display: none;
+        }
         &-img{
             padding-bottom: 16px;
         }
@@ -163,11 +168,21 @@
     justify-content: space-around;
     align-items: center;
     &-check{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 18px;
         height: 18px;
         border-radius: 50%;
         border: 1px solid rgb(78, 168, 222);
         background: transparent;
+        font-size: 0;
+       
+        &.active{
+            background: rgb(94, 96, 206);
+            color: white;
+            font-size: 12px;
+        }
     }
     & p{
         width: 85%;
@@ -177,6 +192,9 @@
         font-weight: 400;
         line-height: 140%;
         text-align: left;
+        &.active{
+            text-decoration: line-through;
+        }
     }
     &-basket{
         background: transparent;

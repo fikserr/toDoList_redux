@@ -8,12 +8,17 @@ export const initialState = {
 
 function check(state=initialState,action) {
     if (action.type == 'check') {
-        console.log(state.check);
+
         return{
             ...state,
-            check: !state.check
+            checkList: !state.checkList
         }
     }
+    if (action.type == 'delete') {
+        let data = JSON.parse(localStorage.getItem('myArray'))
+        console.log(data);
+    }
+
 
       
       return state;

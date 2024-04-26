@@ -6,7 +6,7 @@ export const initialState = {
 }
 
 
-  const data = []
+ export const allData = []
 
 
 
@@ -17,8 +17,8 @@ function notes(state=initialState,action) {
 
     if (action.type === 'btn') {
 
-      data.push(state)
-      let arrayJSON = JSON.stringify(data);
+      allData.push(state)
+      let arrayJSON = JSON.stringify(allData);
       localStorage.setItem('myArray', arrayJSON);
       
 
