@@ -1,34 +1,30 @@
         import { IoMdAddCircleOutline } from "react-icons/io";
         import clipboard from '../img/Clipboard.png'
-        import { useDispatch, useSelector } from 'react-redux'
-        import { setInputValue } from "../redux/action";
-        import { useEffect, useState } from "react";
         import { FaRegTrashCan } from "react-icons/fa6";
         import { IoMdCheckmark } from "react-icons/io";
-import { allData } from "../redux/notes";
-
+        import { useEffect, useState } from "react";
+ 
+        const allData = []
 
                 
 
         function Header() {
-
-
-                const {inputValue} = useSelector((state)=>state.note)
-                const {checkList} = useSelector((state)=>state.listCheck)
-                const dispatch = useDispatch()
-                const [data,setData] = useState([])
-                function onChange(e) {
-                        dispatch(setInputValue(e.target.value))
-                        console.log(e);
-                }
+                const [data,setData] = useState()
+                const [value,setValue] = useState('')  
+                const [dataMap,setDataMap] = useState()
+                const [active,setActive] =useState(false)
+                let currentDate = new Date();
+                
                 
                 useEffect(()=>{
-                let ahar = JSON.parse(localStorage.getItem('myArray'))
-                setData(ahar)
-
-                },[])
-
-                console.log(checkList);
+                        allData.push(data)
+                        let array = JSON.stringify(allData)
+                        localStorage.setItem('myArray', array);
+                        setValue('')
+                        setDataMap(JSON.parse(localStorage.getItem('myArray')))
+                },[data])
+                
+                console.log(dataMap);
                 return (
                 <div className="header">
                 <div className="container">
@@ -36,10 +32,10 @@ import { allData } from "../redux/notes";
 
                                 <div className="header__search">
                                         <input type="text" 
-                                        placeholder="Add a new task.."  
-                                        value={inputValue}
-                                        onChange={onChange}/>
-                                        <button  onClick={()=> dispatch({type: "btn"})}>Add Note <span><IoMdAddCircleOutline /></span></button>
+                                        placeholder="Add a new task.."
+                                        value={value}
+                                        onChange={(e)=>setValue(e.target.value)}/>
+                                        <button onClick={()=>setData({text:value,id:currentDate.getTime()})}>Add Note <span><IoMdAddCircleOutline /></span></button>
                                 </div>
 
 
@@ -48,8 +44,10 @@ import { allData } from "../redux/notes";
                                         <p className="header__tasks-complate">Completed <span>0</span></p>
                                 </div>
 
+
+
                                 <div className="header__note">
-                                        <div className={`header__clipboard  ${data == [] ? "active" : ""}`}>
+                                        <div className="header__clipboard" >
                                                 <img src={clipboard} alt="" className="header__clipboard-img"/>
                                                 <p className="header__clipboard-text">You don`t have tasks registered yet
                                                 Create tasks and organize your to-do items</p>
@@ -57,18 +55,21 @@ import { allData } from "../redux/notes";
 
                                         
                                         <div className="header__card">
-                                                {
-                                                data?.map(item => (
-                                                        
-                                                        <div className="header__box" key={item.id}>
-                                                        <button className={`header__box-check ${checkList === true && item.id  ? "active" : ""}`} onClick={()=> dispatch({type: 'check'})}> <IoMdCheckmark /></button>
-                                                                <p className={` ${checkList === true && item.id  ? "active" : ""}`}>{item.inputValue}</p>
-                                                        <button className="header__box-basket" onClick={()=> dispatch({type: `delete`, payload: `${item.id}`})}><FaRegTrashCan /></button>
+                                                
+                                              {
+                                                dataMap?.map(item =>(
+                                                        <div className="header__box" key={item?.id}>
+                                                        <button className={`header__box-check ${active && item?.id === item?.id ? "active" : ""}`}   onClick={()=> setActive(!active)}> <IoMdCheckmark /></button>
+                                                                <p className={` ${active ? "active" : ""}`}>{item?.text}</p>
+                                                        <button className="header__box-basket" ><FaRegTrashCan /></button>
                                                         </div>
-                                                ))  
-                                                }
+                                                ))
+                                              }          
+                                                      
+                                         
                                         </div>
-                                </div>
+                                        </div>
+
                         </div>
                 </div>
         </div>
