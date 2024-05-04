@@ -12,10 +12,8 @@
                 const [data,setData] = useState()
                 const [value,setValue] = useState('')  
                 const [dataMap,setDataMap] = useState()
-                const [active,setActive] = useState(false)
-                const [Del,setDel] = useState()
+                const [Del,setDel] = useState(false)
                 let currentDate = new Date();
-                let id = null
                 function sendData() {
                         setData({text:value,id:currentDate.getTime()})
                         allData.push(data)
@@ -25,17 +23,26 @@
                 }
                 
                 function Cancel(el) {
-                        setDel(JSON.parse(localStorage.getItem('myArray')))
-                        Del.map(item => item?.id != el) 
+                        let array = JSON.stringify(dataMap.filter(item => item?.id != el) )
+                        localStorage.setItem('myArray', array);
+                        setDel(!Del)
                 }
                 function btnActive(el) {
-                        id = el
-                        setActive(!active)               
+                        setDel(!Del)
+                        let array = JSON.stringify(
+                                dataMap.map(item => 
+                                  item?.id === el ? {...item, textLine: !item?.textLine} : {...item}
+                                )
+                              );
+                              localStorage.setItem('myArray', array);
+
+
                 }
                 
                 useEffect(()=>{
                         setDataMap(JSON.parse(localStorage.getItem('myArray')))
-                },[data])
+
+                },[data,Del])
                 
          
                 return (
@@ -60,7 +67,7 @@
 
 
                                 <div className="header__note">
-                                        <div className={`header__clipboard  ${ allData ? "active" : ""}`} >
+                                        <div className={`header__clipboard  ${ allData == [{}] ? "" : "active"}`} >
                                                 <img src={clipboard} alt="" className="header__clipboard-img"/>
                                                 <p className="header__clipboard-text">You don`t have tasks registered yet
                                                 Create tasks and organize your to-do items</p>
@@ -72,8 +79,8 @@
                                               {
                                                 dataMap?.map(item =>(
                                                         <div className="header__box" key={item?.id}>
-                                                        <button className={`header__box-check ${active && id  == item?.id ? "active" : ""}`}   onClick={()=>btnActive(item?.id)}> <IoMdCheckmark /></button>
-                                                                <p className={` ${active && id == item?.id ? "active" : ""}`}>{item?.text}</p>
+                                                        <button className={`header__box-check ${item?.textLine ? "active" : ""}`}   onClick={()=>btnActive(item?.id)}> <IoMdCheckmark /></button>
+                                                                <p className={` ${item?.textLine ? "active" : ""}`}>{item?.text}</p>
                                                         <button className="header__box-basket" onClick={()=>  Cancel(item?.id)}><FaRegTrashCan /></button>
                                                         </div>
                                                 ))
