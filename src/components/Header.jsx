@@ -19,7 +19,11 @@
                         } return data
                 }
                 const [data,setData] = useState(getLocalStorage)
-                const [value,setValue] = useState('')  
+                const [value,setValue] = useState('')
+                const [complated,setComplated] = useState(0)
+                let total = data.length;
+
+                
                 let currentDate = new Date();
                 function sendData() {
                         setData([...data,{text:value,id:currentDate.getTime(),textLine: false}])
@@ -39,11 +43,23 @@
 
                 }
                 
+               
+
                 useEffect(()=>{
                         localStorage.setItem('myArray', JSON.stringify(data));
+                        setComplated(prevComplated => {
+                                let newComplated = 0;
+                                data.map(item => {
+                                  if (item?.textLine) {
+                                    newComplated++;
+                                  }
+                                });
+                                return newComplated;
+                              });
+                              
+                     
                 },[data])
-                
-                console.log(data);
+
          
                 return (
                 <div className="header">
@@ -60,14 +76,14 @@
 
 
                                 <div className="header__tasks">
-                                        <p className="header__tasks-title">Tasks created <span>0</span></p>
-                                        <p className="header__tasks-complate">Completed <span>0</span></p>
+                                        <p className="header__tasks-title">Tasks created <span>{total}</span></p>
+                                        <p className="header__tasks-complate">Completed<span>{`${total} of ${complated}`}</span></p>
                                 </div>
 
 
 
                                 <div className="header__note">
-                                        <div className={`header__clipboard  ${ data == [{}]  ? "active" : ""}`} >
+                                        <div className={`header__clipboard  ${ total >= 0  ? "active" : ""}`} >
                                                 <img src={clipboard} alt="" className="header__clipboard-img"/>
                                                 <p className="header__clipboard-text">You don`t have tasks registered yet
                                                 Create tasks and organize your to-do items</p>
